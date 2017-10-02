@@ -43,12 +43,17 @@ gem_group :test do
   gem "factory_girl_rails"
   gem "database_cleaner"
 end
-
-gem_group :production do
-  # For Rails 4 deployment on Heroku
-  gem "rails_12factor"
+if yes?("Using heroku?")
+  gem_group :production do
+    # For Rails 4 deployment on Heroku
+    gem "rails_12factor"
+  end
+else
+  gem_group :production do
+    # For Rails 4 deployment on Heroku
+    gem "sqlite3"
+  end  
 end
-
 
 # Setting up foreman to deal with environment variables and services
 # https://github.com/ddollar/foreman
